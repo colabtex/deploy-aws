@@ -33,15 +33,25 @@ echo \
 ===============================================================================
 echo "Follow the instructions above to set up Git" 
 read -p "When finished, press enter" vardump
-
+echo ""
 echo "Manual setup phase complete"
 echo "Running automated setup script..."
+echo \
+===============================================================================
 # bash setup-aws.sh
+echo "(uncomment line above when ready to actually run/test script)"
+echo \
+===============================================================================
 echo "Automated setup script complete"
 
 echo "Finally, deploying AWS"
 read -p "Are you ready? Press enter to continue..." vardump
+echo \
+===============================================================================
 # bash project.sh
+echo "(uncomment line above when ready to actually run/test script)"
+echo \
+===============================================================================
 echo "Automated deployment script complete"
 
 echo "So... How'd we do?"
