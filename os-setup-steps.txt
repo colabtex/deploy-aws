@@ -1,7 +1,7 @@
 1. Remove all favorites except Firefox, Files, and Trash
 
 2. From "Ubuntu Software", search for "Visual Studio Code" and download the 
-   program (just called "code")
+   program (the one that's just called "code")
 
 3.  Add VS Code to Favorites
 
