@@ -11,21 +11,28 @@ README
     the requirement for the {read} command to have a destination var for STDIN
 vardump
 
+echo \
+===============================================================================
+echo ""
+echo "This script will get you set up with your OS, Git, and AWS"
+echo "(the entire project, including this script, is still a work in progress)"
+echo ""
+echo \
+===============================================================================
+
 # Walk the user through setting things up that have not yet been automated 
 echo ""
 cat os-setup-steps.txt
 echo \
 ===============================================================================
 echo "Follow the instructions above to set up the operating system"  
-echo "When finished, press enter"
-read vardump
+read -p "When finished, press enter" vardump
 echo ""
 cat git-setup-steps.txt
 echo \
 ===============================================================================
 echo "Follow the instructions above to set up Git" 
-echo "When finished, press enter"
-read vardump
+read -p "When finished, press enter" vardump
 
 echo "Manual setup phase complete"
 echo "Running automated setup script..."
@@ -33,8 +40,7 @@ echo "Running automated setup script..."
 echo "Automated setup script complete"
 
 echo "Finally, deploying AWS"
-echo "Are you ready? Press enter to continue..."
-read vardump
+read -p "Are you ready? Press enter to continue..." vardump
 # bash project.sh
 echo "Automated deployment script complete"
 
