@@ -15,13 +15,22 @@ vardump
 cat os-setup-steps.txt
 echo \
 "============================================================================="
-read "Follow the instructions above to set up the operating system"  vardump
+echo "Follow the instructions above to set up the operating system"  
+echo "When finished, press enter"
+read vardump
 cat git-setup-steps.txt
 echo \
 "============================================================================="
-read -p "Follow the instructions above to set up Git" vardump
-cat os-setup-steps.txt
-echo \
-"============================================================================="
-read "Follow the instructions above to set up Git"
+echo "Follow the instructions above to set up Git" 
+echo "When finished, press enter"
+read vardump
 
+echo "Manual setup phase complete"
+echo "Running automated setup script..."
+bash setup-aws.sh
+echo "Automated setup script complete"
+
+echo "Finally, deploying AWS"
+echo "Are you ready? Press enter to continue..."
+read vardump
+# bash project.sh
