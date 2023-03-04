@@ -43,7 +43,7 @@ echo "(uncomment line above when ready to actually run/test script)"
 echo \
 ===============================================================================
 echo "Automated setup script complete"
-
+echo ""
 echo "Finally, deploying AWS"
 read -p "Are you ready? Press enter to continue..." vardump
 echo \
@@ -52,6 +52,6 @@ echo \
 echo "(uncomment line above when ready to actually run/test script)"
 echo \
 ===============================================================================
+echo ""
 echo "Automated deployment script complete"
-
 echo "So... How'd we do?"
