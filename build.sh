@@ -29,10 +29,13 @@ read vardump
 
 echo "Manual setup phase complete"
 echo "Running automated setup script..."
-bash setup-aws.sh
+# bash setup-aws.sh
 echo "Automated setup script complete"
 
 echo "Finally, deploying AWS"
 echo "Are you ready? Press enter to continue..."
 read vardump
 # bash project.sh
+echo "Automated deployment script complete"
+
+echo "So... How'd we do?"
