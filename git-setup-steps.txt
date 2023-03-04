@@ -1,0 +1,4 @@
+1. Confirm git version by running $ { git version 2.34.1 
+2. Open VS Code
+3. Go to "Source Control" on the left side (can use Ctrl+Shift+G)
+4. Configure Key Bindings as desired (use Ctrl+Shift+P to quickly view current bindings)
