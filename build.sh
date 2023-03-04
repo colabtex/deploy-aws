@@ -16,7 +16,7 @@ cat os-setup-steps.txt
 echo \
 "============================================================================="
 read "Follow the instructions above to set up the operating system"  vardump
-cat git-setup-steps2.txt
+cat git-setup-steps.txt
 echo \
 "============================================================================="
 read -p "Follow the instructions above to set up Git" vardump
