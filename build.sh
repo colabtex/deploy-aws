@@ -12,15 +12,17 @@ README
 vardump
 
 # Walk the user through setting things up that have not yet been automated 
+echo ""
 cat os-setup-steps.txt
 echo \
-"============================================================================="
+===============================================================================
 echo "Follow the instructions above to set up the operating system"  
 echo "When finished, press enter"
 read vardump
+echo ""
 cat git-setup-steps.txt
 echo \
-"============================================================================="
+===============================================================================
 echo "Follow the instructions above to set up Git" 
 echo "When finished, press enter"
 read vardump
