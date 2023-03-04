@@ -1,9 +1,9 @@
 1. Remove all favorites except Firefox, Files, and Trash
 2. From "Ubuntu Software", search for "Visual Studio Code" and download the program (just called "code")
-*  Add VS Code to Favorites
-3. Switch to sudo using $ { su - }
-4. Make user sudo by running the following: $ { usermod -aG sudo your_username }
-5. So that the updates are applied run the following, and after rebooted, log back in as your_username $ { sudo shutdown now }
-6. Install updates by running the following (and entering your password): $ { sudo apt update }
-7. Install updates by running $ { sudo apt upgrade -y }
-8. From the terminal, install git by running $ { sudo apt install git-all -y }
+3.  Add VS Code to Favorites
+4. Switch to sudo using $ { su - }
+5. Make user sudo by running the following: $ { usermod -aG sudo your_username }
+6. So that the updates are applied run the following, and after rebooted, log back in as your_username $ { sudo shutdown now }
+7. Install updates by running the following (and entering your password): $ { sudo apt update }
+8. Install updates by running $ { sudo apt upgrade -y }
+9. From the terminal, install git by running $ { sudo apt install git-all -y }
