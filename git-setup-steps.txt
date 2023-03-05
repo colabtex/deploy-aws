@@ -1,94 +1,94 @@
 1. Power off system, and provision any additional resources desired now
 
-2. Open new shell/terminal, and confirm git version by running $ { git --version }
+2. Open new shell/terminal, and confirm git version by running the following:
+   $ { git --version }
 
 3. Open VS Code
 
 4. Configure workspace profile/preferences as desired
 
-*. In the left panel, click the "Open Folder" button to open a new folder
+5. In the left panel, click the "Open Folder" button to open a new folder
    (~/Server/aws-deployment is recommended), hencforth called ${project_dir}
 
-*. If asked "Do you trust the authors of the files in this folder?" check the
+6. If asked "Do you trust the authors of the files in this folder?" check the
    box "Trust the authors of all files in the parent folder '${project_dir}'"
    and then click the button "Yes, I trust the authors"
 
-*. Open a new terminal inside VS Code
+7. Open a new terminal inside VS Code
 
-*. Run the following command to initialize an empty local git repo:
+8. Run the following command to initialize an empty local git repo:
    $ { git init }
 
-*. Run $ { git config user.name desired_git_username }
+9. Run $ { git config user.name desired_git_username }
 
-*. Run $ { git config user.email desired_git_username@colabtex.com }
+10. Run $ { git config user.email desired_git_username@colabtex.com }
 
-*. Follow the guide below in order to set up your github keys
-   https://docs.platform.sh/development/private-repository.html
+11. Follow the guide below in order to set up your github keys
+    https://docs.platform.sh/development/private-repository.html
 
-*. Run the following to ensure you don't already have any GPG keys 
-   for Github on your local machine:
-   $ { $ gpg --list-secret-keys --keyid-format=long }
-
-*. Assuming there aren't already any there (or at least none that you 
-   want to use for Github), run the following to generate a GPG key pair
-   $ { gpg --full-generate-key }
-   
-*. Press enter three times to choose the default options for the 
-   key types, keysize, and how long the keys should be valid for, then
-   enter y to confirm
-   
-*. Enter your real name (for Intellectual Property and Copyright reasons)
-
-*. Enter your current valid email address
-
-*. Enter "no comment" (without quotation marks) for the comment
-
-*. Choose the default option for each prompt
-
-*. For a passphrase, use "git_username HHMM favorite_color favorite_food" 
-   where HHMM is the time formatted just as numbers using military time 
-   (for obfuscation, psuedo-random / psuedo-unique identification,
-   standardization, and ease of remembering)
-
-*. List the long form of the GPG keys by running the following:
+12. Run the following to ensure you don't already have any GPG keys for Github 
+    on your local machine:
    $ { gpg --list-secret-keys --keyid-format=long }
 
-*. From that list (likely only one in it), copy the long form of the
-   GPG key ID you'd like to use - and example ID would like like this:
-   3AA5C34371567BD2
-
-*. Run the following to print the GPG key ID, in ASCII armor format,
-   so that you can add it to Github:
-   $ { gpg --armor --export your_gpg_key_id }
-
-*. Copy the key that is printed on the screen, beginning with: 
-   -----BEGIN PGP PUBLIC KEY BLOCK----- 
-   ... and ending with:
-   -----END PGP PUBLIC KEY BLOCK-----
-
-*. Add the GPG key to your GitHub account (see link below):
-   https://docs.github.com/en/authentication/managing-commit-signature-verification/adding-a-gpg-key-to-your-github-account
-
-*. Add a new remote (this Github repo) and call it origin
-   $ { git remote add origin https://github.com/colabtex/deploy-aws.git }
+13. Assuming there aren't already any there (or at least none that you want to 
+    use for Github), run the following to generate a GPG key pair
+    $ { gpg --full-generate-key }
    
-*. To fetch main (so as to not automatically merge it into a branch of
-   the same name, as $ { git pull } would do, run the following:
-   $ { git fetch origin main }
+14. Press enter three times to choose the default options for the key types, 
+    keysize, and how long the keys should be valid for, then enter y to confirm
+   
+15. Enter your real name (for Intellectual Property and Copyright reasons)
 
-*. If prompted that extension 'GitHub' wants to sign in using GitHub, click Allow
+16. Enter your current valid email address
 
-*. Sign into GitHub in window that opens in browser
+17. Enter "no comment" (without quotation marks) for the comment
 
-*. If prompted to allow vscode to open links, click "Open Link" button
+18. Choose the default option for each prompt
 
-*. If prompted to "Allow an extension to open this URI" click the "Open" button
-   $ { git checkout -b production origin/main }
+19. For a passphrase, use "git_username HHMM favorite_color favorite_food" 
+    where HHMM is the time formatted just as numbers using military time 
+    (for obfuscation, psuedo-random / psuedo-unique identification,
+    standardization, and ease of remembering)
 
-*. To pull all remote other branches (since the local branches will 
-   have the same name as the remote branches, run the following:
-   $ { git pull }
+20. List the long form of the GPG keys by running the following:
+    $ { gpg --list-secret-keys --keyid-format=long }
 
-To make sure everything is working make an edit to guestbook.txt, then commit
+21. From that list (likely only one in it), copy the long form of the GPG key 
+    ID you'd like to use - and example ID would like like this:
+    3AA5C34371567BD2
 
-exit
+22. Run the following to print the GPG key ID, in ASCII armor format,
+    so that you can add it to Github:
+    $ { gpg --armor --export your_gpg_key_id }
+
+23. Copy the key that is printed on the screen, beginning with: 
+    -----BEGIN PGP PUBLIC KEY BLOCK----- 
+         ... and ending with ...
+    -----END PGP PUBLIC KEY BLOCK-----
+
+24. Add the GPG key to your GitHub account (see link below), and verify key:
+    https://docs.github.com/en/authentication/managing-commit-signature-verification/adding-a-gpg-key-to-your-github-account
+
+25. Add a new remote (this Github repo) and call it origin
+    $ { git remote add origin https://github.com/colabtex/deploy-aws.git }
+   
+26. To ONLY fetch main (so as to not automatically merge it into a branch of
+    the same name, as $ { git pull } would do) run the following:
+    $ { git fetch origin main }
+
+27. If prompted that extension 'GitHub' wants to sign in, click "Allow" button
+
+28. Sign into GitHub in window that opens in browser
+
+29. If prompted to allow vscode to open links, click "Open Link" button
+
+30. If prompted to "Allow an extension to open this URI" click the "Open" button
+    $ { git checkout -b production origin/main }
+
+31. To pull all other remotes (since any associated local branches will 
+    have the same name as their associated remote branches), run the following:
+    $ { git pull }
+
+32. To make sure everything is working, make an edit to guestbook.txt, save
+    changes, stage changes, commit changes, and then push (if unable to, stash
+    changes first, then git pull, then pop stash, then push)
