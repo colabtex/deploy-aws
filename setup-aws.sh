@@ -28,4 +28,5 @@ rm -f awscliv2.zip
 ls ./
 read -p "Enter a valid VPC ID: " vpc_id
 aws ec2 describe-vpc --vpc-ids ${vpc_id}
+read -p "Ready to proceed with AWS project 
 exit
