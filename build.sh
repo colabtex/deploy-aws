@@ -25,13 +25,13 @@ echo ""
 cat os-setup-steps.txt
 echo \
 ===============================================================================
-echo "Follow the instructions above to set up the operating system"  
+echo "If not already completed, follow the instructions above to set up the operating system"  
 read -p "When finished, press enter" vardump
 echo ""
 cat git-setup-steps.txt
 echo \
 ===============================================================================
-echo "Follow the instructions above to set up Git" 
+echo "If not already completed, follow the instructions above to set up Git" 
 read -p "When finished, press enter" vardump
 echo ""
 echo "Manual setup phase complete"
