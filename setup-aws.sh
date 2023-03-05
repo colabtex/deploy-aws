@@ -1,4 +1,28 @@
 #!/bin/bash
+
+echo "You're set up, and you don't need to run this script"
+read x
+exit
+read x
+echo "Do not run this script"
+echo "DO NOT RUN THIS SCRIPT"
+echo "DO"
+echo "NOT"
+echo "RUN"
+echo "THIS"
+echo "SCRIPT"
+echo "DONT YOU DARE!!!"
+echo "I SAID DONT RUN THE SCRIPT"
+read x
+read x
+read x
+read x
+exit
+read x
+read x
+read x
+exit
+
 <<curl
     For now, install curl in this script.
     In another branch, will add command to install curl (prior to this script
