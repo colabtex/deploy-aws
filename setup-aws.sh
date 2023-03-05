@@ -20,18 +20,19 @@ aws --version
 confirm
 echo "In firefox, go to -> https://d-9067ada41c.awsapps.com/start"
 confirm
-echo "Copy and paste AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY_ID, and \
-AWS_SESSION_TOKEN below (all in one text block selection), then press enter:"
-confirm
+# echo "Copy and paste AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY_ID, and \
+# AWS_SESSION_TOKEN below (all in one text block selection), then press enter:"
+# confirm
 echo ""
 # rm -f awscliv2.zip
-ls ./
+# ls ./
 # echo "--- (the bulk of the scripts automation will go here) ---"
 <<DEP_tproduser11923
     Example production username from aws documentation is preppended with t to 
     that its a test profile and appended with obfuscated acronym for uniqueness
 DEP_tproduser11923
-aws configure 
+read "Enter username (profile name): " profile
+aws configure --profile ${profile}
 confirm
 read -p "Enter your default VPC: " vpc_id
 aws ec2 describe-vpcs --vpc-id ${vpc_id} --region us-east-2
