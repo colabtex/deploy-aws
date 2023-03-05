@@ -1,0 +1,12 @@
+[profile 604961044289_AdministratorAccess]
+region = us-east-1
+output = json
+[default]
+region = us-east-1
+output = json
+[deploy]
+region = us-east-1
+output = json
+[profile deploy]
+region = us-east-1
+output = json
