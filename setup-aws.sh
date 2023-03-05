@@ -12,7 +12,8 @@ unzip -u awscliv2.zip
 sudo ./aws/install --bin-dir /usr/local/bin --install-dir /usr/local/aws-cli --update
 echo "AWS Version -> "
 aws --version
-firefox "https://d-9067ada41c.awsapps.com/start"
+firefox "https://d-9067ada41c.awsapps.com/start" &
+echo ""
 read AWS_ACCESS_KEY_ID_command
 read AWS_SECRET_ACCESS_KEY_ID_command
 read AWS_SESSION_TOKEN_command
