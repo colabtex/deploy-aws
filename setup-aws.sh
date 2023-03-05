@@ -27,11 +27,11 @@ echo ""
 # rm -f awscliv2.zip
 ls ./
 # echo "--- (the bulk of the scripts automation will go here) ---"
-<<tproduser11923
+<<DEP_tproduser11923
     Example production username from aws documentation is preppended with t to 
     that its a test profile and appended with obfuscated acronym for uniqueness
-tproduser11923
-aws configure --profile tproduser11923
+DEP_tproduser11923
+aws configure
 confirm
 read -p "Enter your default VPC: " vpc_id
 aws ec2 describe-vpcs --vpc-id ${vpc_id} --region us-east-1
