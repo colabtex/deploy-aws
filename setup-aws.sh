@@ -27,11 +27,8 @@ echo ""
 # rm -f awscliv2.zip
 # ls ./
 # echo "--- (the bulk of the scripts automation will go here) ---"
-<<DEP_tproduser11923
-    Example production username from aws documentation is preppended with t to 
-    that its a test profile and appended with obfuscated acronym for uniqueness
-DEP_tproduser11923
 read -p "Enter username (profile name): " profile
+echo "Using profile: ${profile}"
 aws configure --profile ${profile}
 confirm
 read -p "Enter your default VPC: " vpc_id
