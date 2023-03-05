@@ -45,10 +45,17 @@ export AWS_ACCESS_KEY_ID=${akid}
 export AWS_SECRET_ACCESS_KEY=${sak}
 export AWS_DEFAULT_REGION=${region}
 export AWS_VPC_ID=${vpc_id}
+newline
+echo "Wait 10 seconds"
+newline
+sleep 10
 aws configure list
 newline
 confirm
 newline
+echo "Wait 10 seconds"
+newline
+sleep 10
 aws ec2 describe-vpcs --vpc-id ${vpc_id} --region us-east-2
 exit
 aws configure --profile ${profile}
