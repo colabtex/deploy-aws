@@ -1,12 +1,12 @@
-[profile ${012345678999_AdministratorAccess}]
+[profile 604961044289_AdministratorAccess]
 region = us-east-1
 output = json
 [default]
 region = us-east-1
 output = json
-[${profile_username}]
+[deploy]
 region = us-east-1
 output = json
-[profile ${profile_username}]
+[profile deploy]
 region = us-east-1
 output = json
