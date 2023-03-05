@@ -24,13 +24,7 @@ echo "Copy and paste AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY_ID, and \
 AWS_SESSION_TOKEN below (all in one text block selection), then press enter:"
 confirm
 echo ""
-read AWS_ACCESS_KEY_ID_command
-read AWS_SECRET_ACCESS_KEY_ID_command
-read AWS_SESSION_TOKEN_command
-${AWS_ACCESS_KEY_ID_command}
-${AWS_SECRET_ACCESS_KEY_ID_command}
-${AWS_SESSION_TOKEN_command}
-rm -f awscliv2.zip
+# rm -f awscliv2.zip
 ls ./
 # echo "--- (the bulk of the scripts automation will go here) ---"
 <<tproduser11923
@@ -40,6 +34,6 @@ tproduser11923
 aws configure --profile tproduser11923
 confirm
 read -p "Enter your default VPC: " vpc_id
-aws ec2 describe-vpc --vpc-ids ${vpc_id}
+aws ec2 describe-vpcs --vpc-ids ${vpc_id}
 read -p "Ready to proceed with AWS project"
 exit
