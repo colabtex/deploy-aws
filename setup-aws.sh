@@ -34,6 +34,6 @@ tproduser11923
 aws configure --profile tproduser11923
 confirm
 read -p "Enter your default VPC: " vpc_id
-aws ec2 describe-vpcs --vpc-ids ${vpc_id}
+aws ec2 describe-vpcs --vpc-id ${vpc_id} --region us-east-1
 read -p "Ready to proceed with AWS project"
 exit
