@@ -5,7 +5,7 @@
     being called)
 curl
 function confirm() {
-    read -p "Press <ENTER> to confrim you're ready to proceed... "
+    read -p "Press <ENTER> to confirm you're ready to proceed... "
 }
 sudo apt install curl -y
 # read -p "First, make sure your AWS IAM user is enabled - then press enter" dump
@@ -19,7 +19,7 @@ echo "AWS Version -> "
 aws --version
 confirm
 echo "In firefox, go to -> https://d-9067ada41c.awsapps.com/start"
-confrim
+confirm
 echo "Copy and paste AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY_ID, and \
 AWS_SESSION_TOKEN below (all in one text block selection), then press enter:"
 confirm
