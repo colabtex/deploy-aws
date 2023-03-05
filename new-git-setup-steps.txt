@@ -77,10 +77,25 @@
 ## Still, try everything up until the call to exit
 
 *. Add a new remote (this Github repo) and call it origin
-   $ { git remote add origin  }
+   $ { git remote add origin https://github.com/colabtex/deploy-aws.git }
 
 *. Create a new local branch using git checkout, give it the name production, and set it to track origin/main
-   $ { git checkout --track -b production origin/main }
+   $ { git checkout -b production origin }
+   
+git fetch origin main
+
+If prompted that extension 'GitHub' wants to sign in using GitHub, click Allow
+
+Sign into GitHub in window that opens in browser
+
+If prompted to allow vscode to open links, click "Open Link" button
+
+If prompted to "Allow an extension to open this URI" click the "Open" button
+
+git switch production
+
+git merge main
+
 exit
 
 # This is wrong, don't clone, you need to pull
