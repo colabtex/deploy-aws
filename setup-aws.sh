@@ -17,6 +17,7 @@ aws --version
 firefox "https://d-9067ada41c.awsapps.com/start" &
 echo "Copy and paste AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY_ID, and \
 AWS_SESSION_TOKEN below (all in one text block selection), then press enter:"
+read "(press enter when ready)"
 echo ""
 read AWS_ACCESS_KEY_ID_command
 read AWS_SECRET_ACCESS_KEY_ID_command
