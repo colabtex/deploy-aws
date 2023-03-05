@@ -40,11 +40,11 @@ newline
 echo "Okay?"
 newline
 confirm
-export AWS_PROFILE=${profile}
-export AWS_ACCESS_KEY_ID=${akid}
-export AWS_SECRET_ACCESS_KEY=${sak}
-export AWS_DEFAULT_REGION=${region}
-export AWS_VPC_ID=${vpc_id}
+export AWS_PROFILE="${profile}"
+export AWS_ACCESS_KEY_ID="${akid}"
+export AWS_SECRET_ACCESS_KEY="${sak}"
+export AWS_DEFAULT_REGION="${region}"
+export AWS_VPC_ID="${vpc_id}"
 newline
 echo "Wait 10 seconds"
 newline
