@@ -7,14 +7,16 @@ curl
 function confirm() {
     read -p "Press <ENTER> to confirm you're ready to proceed... "
 }
+function newline() {
+    echo ""
+}
 sudo apt install curl -y
 # read -p "First, make sure your AWS IAM user is enabled - then press enter" dump
 # read -p "(press enter) About to curl, unzip, and install AWS" dump
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o \
 "awscliv2.zip"
 unzip -u awscliv2.zip
-sudo ./aws/install --bin-dir /usr/local/bin --install-dir /usr/local/aws-cli \
---update
+sudo ./aws/install --update -y
 echo "AWS Version -> "
 aws --version
 confirm
