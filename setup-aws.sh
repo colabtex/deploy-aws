@@ -20,9 +20,9 @@ aws --version
 confirm
 
 newline
-#firefox -P 'Another Profile' https://d-9067ada41c.awsapps.com/start
-sudo apt install google-chrome -y
-google-chrome https://d-9067ada41c.awsapps.com/start
+echo "Go to the following URL:"
+echo https://d-9067ada41c.awsapps.com/start
+newline
 confirm
 
 newline
