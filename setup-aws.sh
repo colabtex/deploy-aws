@@ -16,7 +16,7 @@ sudo apt install curl -y
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o \
 "awscliv2.zip"
 unzip -u awscliv2.zip
-sudo ./aws/install --update -y
+sudo ./aws/install --update
 echo "AWS Version -> "
 aws --version
 confirm
@@ -51,6 +51,8 @@ export AWS_DEFAULT_REGION="${region}"
 export AWS_VPC_ID="${vpc_id}"
 echo "Exporting..."
 echo "Wait 10 seconds"
+newline
+aws configure --profile ${profile}
 newline
 echo "Generating List..."
 echo "Wait 10 more seconds"
