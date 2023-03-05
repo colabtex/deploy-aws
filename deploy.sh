@@ -51,13 +51,13 @@ confirm
 confirm
 
 newline
-# echo "--- (the bulk of the scripts automation will go here) ---"
-<<tproduser11923
-    Example production username from aws documentation is preppended with t to 
-    that its a test profile and appended with obfuscated acronym for uniqueness
-tproduser11923
-aws configure --profile tproduser11923
-confirm
+echo "--- (the bulk of the scripts automation will go here) ---"
+# <<tproduser11923
+#     Example production username from aws documentation is preppended with t to 
+#     that its a test profile and appended with obfuscated acronym for uniqueness
+# tproduser11923
+# aws configure --profile tproduser11923
+# confirm
 
 newline
 echo "End of Script"

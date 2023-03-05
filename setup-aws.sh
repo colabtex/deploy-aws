@@ -18,7 +18,8 @@ sudo ./aws/install --bin-dir /usr/local/bin --install-dir /usr/local/aws-cli \
 echo "AWS Version -> "
 aws --version
 confirm
-firefox "https://d-9067ada41c.awsapps.com/start"
+echo "In firefox, go to -> https://d-9067ada41c.awsapps.com/start"
+confrim
 echo "Copy and paste AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY_ID, and \
 AWS_SESSION_TOKEN below (all in one text block selection), then press enter:"
 confirm
@@ -31,7 +32,14 @@ ${AWS_SECRET_ACCESS_KEY_ID_command}
 ${AWS_SESSION_TOKEN_command}
 rm -f awscliv2.zip
 ls ./
-read -p "Enter a valid VPC ID: " vpc_id
+# echo "--- (the bulk of the scripts automation will go here) ---"
+<<tproduser11923
+    Example production username from aws documentation is preppended with t to 
+    that its a test profile and appended with obfuscated acronym for uniqueness
+tproduser11923
+aws configure --profile tproduser11923
+confirm
+read -p "Enter your default VPC: " vpc_id
 aws ec2 describe-vpc --vpc-ids ${vpc_id}
-read -p "Ready to proceed with AWS project 
+read -p "Ready to proceed with AWS project"
 exit
