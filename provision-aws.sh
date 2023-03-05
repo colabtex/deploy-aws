@@ -61,6 +61,7 @@ rm -f ${log_file}
 rm -f *.lgt
 touch ${log_file}
 touch ./logit.example.lgt
+kvp_dir=~/kvp_dir
 logit() {
     cat $1 >> ${log_file} 2>&1
 }
