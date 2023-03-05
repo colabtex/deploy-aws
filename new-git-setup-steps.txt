@@ -2,20 +2,14 @@
 
 2. Open new shell/terminal, and confirm git version by running $ { git --version }
 
-3. You will need to add your GPG key to github, so install pgpgpg in order to do so
-   $ { sudo apt install pgpgpg }
+3. Open VS Code
 
-4. Open VS Code
+4. Configure workspace profile/preferences as desired
 
-5. Configure key bindings, profile, etc. as desired (use CTRL+SHIFT+P to 
-   quickly view current bindings)
-
-6. Configure workspace profile/preferences as desired
-
-7. In the left panel, click the "Open Folder" button to open a new folder
+*. In the left panel, click the "Open Folder" button to open a new folder
    (~/Server/aws-deployment is recommended), hencforth called ${project_dir}
 
-8. If asked "Do you trust the authors of the files in this folder?" check the
+*. If asked "Do you trust the authors of the files in this folder?" check the
    box "Trust the authors of all files in the parent folder '${project_dir}'"
    and then click the button "Yes, I trust the authors"
 
@@ -39,8 +33,9 @@
    want to use for Github), run the following to generate a GPG key pair
    $ { gpg --full-generate-key }
    
-*. Choose the default optioon for the key types, keysize, and how long
-   the keys should be valid for, then enter y to confirm
+*. Press enter three times to choose the default options for the 
+   key types, keysize, and how long the keys should be valid for, then
+   enter y to confirm
    
 *. Enter your real name (for Intellectual Property and Copyright reasons)
 
@@ -50,9 +45,10 @@
 
 *. Choose the default option for each prompt
 
-*. For a passphrase, use yourHHMM where HHMM is the time
-   formatted just as numbers using military time (for obfuscation, and for
-   psuedo-random / psuedo-unique identification)
+*. For a passphrase, use "git_username HHMM favorite_color favorite_food" 
+   where HHMM is the time formatted just as numbers using military time 
+   (for obfuscation, psuedo-random / psuedo-unique identification,
+   standardization, and ease of remembering)
 
 *. List the long form of the GPG keys by running the following:
    $ { gpg --list-secret-keys --keyid-format=long }
@@ -63,7 +59,7 @@
 
 *. Run the following to print the GPG key ID, in ASCII armor format,
    so that you can add it to Github:
-   $ { pgp --armor --export your_gpg_key_id }
+   $ { gpg --armor --export your_gpg_key_id }
 
 *. Copy the key that is printed on the screen, beginning with: 
    -----BEGIN PGP PUBLIC KEY BLOCK----- 
@@ -73,26 +69,25 @@
 *. Add the GPG key to your GitHub account (see link below):
    https://docs.github.com/en/authentication/managing-commit-signature-verification/adding-a-gpg-key-to-your-github-account
 
-## The remainder of this script may or may not be valid
-## Still, try everything up until the call to exit
-
 *. Add a new remote (this Github repo) and call it origin
    $ { git remote add origin https://github.com/colabtex/deploy-aws.git }
-
-*. Create a new local branch using git checkout, give it the name production, and set it to track origin/main
-   $ { git checkout -b production origin }
    
-git fetch origin main
+*. To fetch main (so as to not automatically merge it into a branch of
+   the same name, as $ { git pull } would do, run the following:
+   $ { git fetch origin main }
 
-If prompted that extension 'GitHub' wants to sign in using GitHub, click Allow
+*. If prompted that extension 'GitHub' wants to sign in using GitHub, click Allow
 
-Sign into GitHub in window that opens in browser
+*. Sign into GitHub in window that opens in browser
 
-If prompted to allow vscode to open links, click "Open Link" button
+*. If prompted to allow vscode to open links, click "Open Link" button
 
-If prompted to "Allow an extension to open this URI" click the "Open" button
+*. If prompted to "Allow an extension to open this URI" click the "Open" button
+   $ { git checkout -b production origin/main }
 
-git checkout -b production origin/main
+*. To pull all remote other branches (since the local branches will 
+   have the same name as the remote branches, run the following:
+   $ { git pull }
 
 To make sure everything is working make an edit to guestbook.txt, then commit
 
