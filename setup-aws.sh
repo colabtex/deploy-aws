@@ -18,7 +18,7 @@ sudo ./aws/install --bin-dir /usr/local/bin --install-dir /usr/local/aws-cli \
 echo "AWS Version -> "
 aws --version
 confirm
-firefox "https://d-9067ada41c.awsapps.com/start" &
+firefox "https://d-9067ada41c.awsapps.com/start"
 echo "Copy and paste AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY_ID, and \
 AWS_SESSION_TOKEN below (all in one text block selection), then press enter:"
 confirm
