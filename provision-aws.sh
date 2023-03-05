@@ -5,7 +5,7 @@ function newline() {
     echo ""
 }
 function confirm() {
-    read -p "Press <ENTER> to confrim you're ready to proceed... "
+    read -p "Press <ENTER> to confirm you're ready to proceed... "
 }
 function end_program() {
     cat ${log_file}
@@ -209,8 +209,12 @@ process_command_output
 rt_id=${kvp_value}
 echo "> Created Route: ${rt_id}" | logit
 
+newline
 echo "Before trying to associate route table, we are going to first validate \
 this script up until this point, including the tear down in end_program"
+newline
+confirm
+newline
 
 end_program
 exit
