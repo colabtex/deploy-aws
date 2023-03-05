@@ -31,7 +31,7 @@ echo ""
     Example production username from aws documentation is preppended with t to 
     that its a test profile and appended with obfuscated acronym for uniqueness
 DEP_tproduser11923
-read "Enter username (profile name): " profile
+read -p "Enter username (profile name): " profile
 aws configure --profile ${profile}
 confirm
 read -p "Enter your default VPC: " vpc_id
