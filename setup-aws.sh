@@ -31,9 +31,9 @@ ls ./
     Example production username from aws documentation is preppended with t to 
     that its a test profile and appended with obfuscated acronym for uniqueness
 DEP_tproduser11923
-aws configure
+aws configure 
 confirm
 read -p "Enter your default VPC: " vpc_id
-aws ec2 describe-vpcs --vpc-id ${vpc_id} --region us-east-1
+aws ec2 describe-vpcs --vpc-id ${vpc_id} --region us-east-2
 read -p "Ready to proceed with AWS project"
 exit
