@@ -26,16 +26,15 @@ newline
 echo "Go to the following URL:"
 echo https://d-9067ada41c.awsapps.com/start
 newline
-echo "Copy text from Option 2 to match the format of credentials_example.txt, \
-and put it in a file that's just named 'credentials'"
+echo "Copy text from Option 2 and paste into the 'credentials' file, \
+replacing 'key=${example_value}' 'key=actual_value'"
 newline
-echo "Make another file just named 'config' and copy the text from \
-config_example.txt into it"
+echo "Make that same kind of replacement but this time with the 'config' file \
+(using those same values you see in that same browser window)"
 newline
 echo "Copy those new files, credentials and config, and past them into ~/.aws/"
 newline
 confirm
-
 echo "Testing Credentials (if you receive output, the test passed)"
 aws sts get-caller-identity
 newline 

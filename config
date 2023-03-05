@@ -1,0 +1,12 @@
+[profile 012345678999_AdministratorAccess]
+region = ${default_vpc_region}
+output = json
+[default]
+region = ${default_vpc_region}
+output = json
+[deploy]
+region = ${default_vpc_region}
+output = json
+[profile deploy]
+region = ${default_vpc_region}
+output = json
