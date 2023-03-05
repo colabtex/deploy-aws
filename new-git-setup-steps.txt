@@ -61,7 +61,14 @@
 *. Add the GPG key to your GitHub account (see link below):
    https://docs.github.com/en/authentication/managing-commit-signature-verification/adding-a-gpg-key-to-your-github-account
 
-# The remainder of this script may or may not be valid
+## The remainder of this script may or may not be valid
+## Still, try everything up until the call to exit
+
+*. Add a new remote (this Github repo) and call it origin
+   $ { git remote add origin  }
+
+*. Create a new local branch using git checkout, give it the name production, and set it to track origin/main
+   $ { git checkout --track -b production origin/main }
 exit
 
 # This is wrong, don't clone, you need to pull
