@@ -38,7 +38,7 @@ echo "Manual setup phase complete"
 echo "Running automated setup script..."
 echo \
 ===============================================================================
-# bash setup-aws.sh
+bash setup-aws.sh
 echo "(uncomment line above when ready to actually run/test script)"
 echo \
 ===============================================================================
@@ -48,7 +48,7 @@ echo "Finally, deploying AWS"
 read -p "Are you ready? Press enter to continue..." vardump
 echo \
 ===============================================================================
-# bash project.sh
+bash project.sh
 echo "(uncomment line above when ready to actually run/test script)"
 echo \
 ===============================================================================
