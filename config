@@ -1,12 +1,12 @@
-[profile 012345678999_AdministratorAccess]
-region = ${default_vpc_region}
+[profile ${012345678999_AdministratorAccess}]
+region = us-east-1
 output = json
 [default]
-region = ${default_vpc_region}
+region = us-east-1
 output = json
-[deploy]
-region = ${default_vpc_region}
+[${profile_username}]
+region = us-east-1
 output = json
-[profile deploy]
-region = ${default_vpc_region}
+[profile ${profile_username}]
+region = us-east-1
 output = json
