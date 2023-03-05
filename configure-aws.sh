@@ -50,15 +50,8 @@ aws ec2 describe-vpcs --vpc-id ${vpc_id} --region ${vpc_region} >> ./dvpc.txt
 echo "Showing output of describe-vpcs command"
 cat ./dvpc.txt | less
 echo "Finished showing output of describe-vpcs command, from dvpc.txt"
+newline
 read -p "Ready to proceed with AWS project?"
 newline
-newline
-read -p "Are you sure???"
-newline
-newline
 confirm
-echo "Calling Command: bash project.sh"
-bash project.sh
-newline
-echo "Script Complete: configure-aws.sh"
 exit

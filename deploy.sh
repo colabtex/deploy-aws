@@ -37,13 +37,6 @@ confirm
 newline
 echo 3. You are able to log into [ https://d-9067ada41c.awsapps.com/start ]
 
-confirm
-newline
-echo 4. If you have already entered keys, its okay to do so again momentarily
-confirm
-newline
-
-
 newline
 # Prompt to confirm twice, because because proper dry-runs are for whimps
 echo "Are you ready to run this script? Dry runs are not being utilized"
@@ -51,13 +44,14 @@ confirm
 confirm
 
 newline
-echo "--- (the bulk of the scripts automation will go here) ---"
-# <<tproduser11923
-#     Example production username from aws documentation is preppended with t to 
-#     that its a test profile and appended with obfuscated acronym for uniqueness
-# tproduser11923
-# aws configure --profile tproduser11923
-# confirm
+echo "Now calling configure-aws.sh..."
+bash configure-aws.sh
+echo "Returned from configure-aws.sh"
+
+newline
+echo "Now calling project.sh..."
+bash project.sh
+echo "Returned from project.sh"
 
 newline
 echo "End of Script"
