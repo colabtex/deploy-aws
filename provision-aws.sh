@@ -209,7 +209,11 @@ process_command_output
 rt_id=${kvp_value}
 echo "> Created Route: ${rt_id}" | logit
 
+echo "Before trying to associate route table, we are going to first validate \
+this script up until this point, including the tear down in end_program"
 
+end_program
+exit
 
 ###   Associate Route Table
 echo "Associating Route Table"
