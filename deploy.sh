@@ -27,7 +27,26 @@ echo "This script will serve to deploy the container as specified in the \
 example requirements"
 
 newline
+echo "First, make sure the following prerequsites are met: "
+newline
+echo 1. Your IAM Identity Center user is enabled
+confirm
+newline
+echo 2. AWS has been installed - and if not, run bash setup-aws.sh
+confirm
+newline
+echo 3. You are able to log into [ https://d-9067ada41c.awsapps.com/start ]
+
+confirm
+newline
+echo 4. If you have already entered keys, its okay to do so again momentarily
+confirm
+newline
+
+
+newline
 # Prompt to confirm twice, because because proper dry-runs are for whimps
+echo "Are you ready to run this script? Dry runs are not being utilized"
 confirm
 confirm
 
