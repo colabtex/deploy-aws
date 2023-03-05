@@ -27,11 +27,11 @@ confirm
 
 newline
 read -p "Enter username (profile name): " profile
-echo "Using profile: ${profile}"
 read -p "Enter AKID: " akid
 read -p "Enter SAK: " sak
 read -p "Enter region [us-east-2]: " region
 read -p "Enter default VPC: " vpc_id
+echo "Profile: ${profile}"
 echo "AKID: ${akid}"
 echo "SAK: ${sak}"
 echo "Region: ${region}"
