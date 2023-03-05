@@ -12,19 +12,20 @@ logit() {
   cat $1 >> ${log_file} 2>&1
 }
 echo "PWD: ${log_file}" | logit
+echo ""
+read -p "Username: " username
 
 ### Setup
 config_file=~/config.txt
 rm -f ${config_file}
 touch ${config_file}
-username="wiehea1"
 echo "> Username: ${username}" >> ${config_file}
 keyname="${username}-key"
 echo "> Keyname: ${keyname}" >> ${config_file}
 cat ${config_file} | logit
 aws ec2 delete-key-pair --key-name ${keyname} | logit
 kvp_dir=~/kvp_dir
-rm -r ${kvp_dir} | logit
+rm -rf ${kvp_dir} | logit
 mkdir ${kvp_dir} | logit
 rm -f devenv-key connect-to-instance.sh | logit
 rm -rf ${kvp_dir} | logit

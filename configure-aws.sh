@@ -35,13 +35,18 @@ newline
 echo "Copy those new files, credentials and config, and past them into ~/.aws/"
 newline
 confirm
+
+newline
 echo "Testing Credentials (if you receive output, the test passed)"
 aws sts get-caller-identity
+
 newline 
 echo "Showing aws config list (just for reference)"
-aws config list
+aws configure list
+
 newline
 echo "Will now try to view default vpc as a basic test"
+echo "(first, need to supply the following details)"
 newline
 read -p "Enter your default VPC: " vpc_id
 read -p "Enter region of the VPC: " vpc_region
