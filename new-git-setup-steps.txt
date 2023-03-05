@@ -2,6 +2,9 @@
 
 1. Open new shell/terminal, and confirm git version by running $ { git --version }
 
+*. You will need to add your GPG key to github, so install pgpgpg in order to do so
+   $ { sudo apt install pgpgpg }
+
 2. Open VS Code
 
 3. Configure key bindings, profile, etc. as desired (use CTRL+SHIFT+P to 
@@ -33,12 +36,21 @@
    $ { $ gpg --list-secret-keys --keyid-format=long }
 
 *. Assuming there aren't already any there (or at least none that you 
-   want to user for Github), run the following to generate a GPG key pair
+   want to use for Github), run the following to generate a GPG key pair
    $ { gpg --full-generate-key }
+   
+*. Choose the default optioon for the key types, keysize, and how long
+   the keys should be valid for, then enter y to confirm
+   
+*. Enter your real name (for Intellectual Property and Copyright reasons)
+
+*. Enter your current valid email address
+
+*. Enter "no comment" (without quotation marks) for the comment
 
 *. Choose the default option for each prompt
 
-*. For a passphrase, use desired_git_usernameHHMM where HHMM is the time
+*. For a passphrase, use yourHHMM where HHMM is the time
    formatted just as numbers using military time (for obfuscation, and for
    psuedo-random / psuedo-unique identification)
 
