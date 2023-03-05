@@ -7,9 +7,11 @@ curl
 sudo apt install curl -y
 read -p "First, make sure your AWS IAM user is enabled - then press enter" dump
 read -p "(press enter) About to curl, unzip, and install AWS" dump
-curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o \
+"awscliv2.zip"
 unzip -u awscliv2.zip
-sudo ./aws/install --bin-dir /usr/local/bin --install-dir /usr/local/aws-cli --update
+sudo ./aws/install --bin-dir /usr/local/bin --install-dir /usr/local/aws-cli \
+--update
 echo "AWS Version -> "
 aws --version
 firefox "https://d-9067ada41c.awsapps.com/start" &
