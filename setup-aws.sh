@@ -33,6 +33,8 @@ read -p "Enter AKID: " akid
 read -p "Enter SAK: " sak
 read -p "Enter region [us-east-2]: " region
 read -p "Enter default VPC: " vpc_id
+
+newline
 echo "Profile: ${profile}"
 echo "AKID: ${akid}"
 echo "SAK: ${sak}"
@@ -47,18 +49,26 @@ export AWS_ACCESS_KEY_ID="${akid}"
 export AWS_SECRET_ACCESS_KEY="${sak}"
 export AWS_DEFAULT_REGION="${region}"
 export AWS_VPC_ID="${vpc_id}"
-newline
+echo "Exporting..."
 echo "Wait 10 seconds"
+newline
+echo "Generating List..."
+echo "Wait 10 more seconds"
 newline
 sleep 10
 aws configure list
 newline
+sleep 3
+aws configure list
 confirm
 newline
-echo "Wait 10 seconds"
+echo "Getting VPC..."
+echo "Wait 10 final seconds"
 newline
 sleep 10
 aws ec2 describe-vpcs --vpc-id ${vpc_id} --region us-east-2
+newline
+echo "Script Complete"
 exit
 aws configure --profile ${profile}
 confirm
