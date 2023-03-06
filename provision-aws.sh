@@ -77,7 +77,7 @@ echo "PWD: ${log_file}" | log_action
 newline
 read -p "Username: " username
 ### Setup
-config_file=~/config.txt
+config_file=./config.txt
 rm -f ${config_file}
 touch ${config_file}
 echo "> Username: ${username}" >> ${config_file}
@@ -85,7 +85,7 @@ echo "> Username: ${username}" >> ${config_file}
 # echo "> Keyname: ${keyname}" >> ${config_file}
 # cat ${config_file} | log_action
 # aws ec2 delete-key-pair --key-name ${keyname} | log_action
-kvp_dir=~/kvp_dir
+kvp_dir=./kvp_dir
 rm -rf ${kvp_dir} | log_action
 mkdir ${kvp_dir} | log_action
 # rm -f devenv-key connect-to-instance.sh | log_action

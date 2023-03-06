@@ -1,5 +1,5 @@
 =============================================================================
-Test Starting Execution At: Sun Mar 5 07:15:08 PM EST 2023
+Test Starting Execution At: Sun Mar 5 07:19:26 PM EST 2023
 
 Testing Credentials (if you receive output, the test passed)
 {
@@ -41,5 +41,5 @@ secret_key     ****************6yhg shared-credentials-file
     ]
 }
 
-Test Finishing Execution At: Sun Mar 5 07:15:17 PM EST 2023
+Test Finishing Execution At: Sun Mar 5 07:19:34 PM EST 2023
 =============================================================================
