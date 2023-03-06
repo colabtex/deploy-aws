@@ -129,21 +129,43 @@ newline
 confirm
 newline
 
-###   Subnet
+###   Subnet A
 echo "Creating Subnet"
 newline
-create_subnet_0() {
-  create_subnet_dir=${kvp_dir}/create_subnet
-  mkdir -p ${create_subnet_dir}
-  kvp_file=${create_subnet_dir}/create_subnet.json
+create_subnet_a() {
+  create_subnet_a_dir=${kvp_dir}/create_subnet_a
+  mkdir -p ${create_subnet_a_dir}
+  kvp_file=${create_subnet_a_dir}/create_subnet_a.json
   touch ${kvp_file}
-  aws ec2 create-subnet --vpc-id ${vpc_id} --cidr-block 10.6.8.0/28 --availability-zone us-east-1a >> ${kvp_file}
+  aws ec2 create-subnet --vpc-id ${vpc_id} --cidr-block 10.6.8.0/28 \
+  --availability-zone us-east-1a >> ${kvp_file}
 }
-create_subnet_0
+create_subnet_a
 kvp_key="SubnetId"
 process_command_output
-subnet_id=${kvp_value}
-echo "> Created Subnet: ${subnet_id}" | log_action
+subnet_a_id=${kvp_value}
+echo "> Created Subnet: ${subnet_a_id}" | log_action
+
+newline
+confirm
+newline
+
+###   Subnet B
+echo "Creating Subnet B"
+newline
+create_subnet_b() {
+  create_subnet_b_dir=${kvp_dir}/create_subnet_b
+  mkdir -p ${create_subnet_b_dir}
+  kvp_file=${create_subnet_b_dir}/create_subnet_b.json
+  touch ${kvp_file}
+  aws ec2 create-subnet --vpc-id ${vpc_id} --cidr-block 10.6.8.1/28 \
+  --availability-zone us-east-1a >> ${kvp_file}
+}
+create_subnet_b
+kvp_key="SubnetId"
+process_command_output
+subnet_b_id=${kvp_value}
+echo "> Created Subnet: ${subnet_b_id}" | log_action
 
 newline
 confirm
@@ -177,7 +199,8 @@ attach_igw_0() {
   mkdir -p ${attach_igw_dir}
   kvp_file=${attach_igw_dir}/attach_igw.json
   touch ${kvp_file}
-  aws ec2 attach-internet-gateway --vpc-id ${vpc_id} --internet-gateway-id ${igw_id} >> ${kvp_file}
+  aws ec2 attach-internet-gateway --vpc-id ${vpc_id} --internet-gateway-id \
+  ${igw_id} >> ${kvp_file}
 }
 attach_igw_0
 process_command_output
@@ -214,7 +237,8 @@ create_rt_0() {
   mkdir -p ${create_rt_dir}
   kvp_file=${create_rt_dir}/create_rt.json
   touch ${kvp_file}
-  aws ec2 create-route --route-table-id ${rtb_id} --destination-cidr-block 0.0.0.0/0 --gateway-id ${igw_id} >> ${kvp_file}
+  aws ec2 create-route --route-table-id ${rtb_id} --destination-cidr-block \
+  0.0.0.0/0 --gateway-id ${igw_id} >> ${kvp_file}
 }
 create_rt_0
 kvp_key="Routes"
@@ -258,7 +282,8 @@ associate_rtb_0() {
   mkdir -p ${associate_rtb_dir}
   kvp_file=${associate_rtb_dir}/associate_rtb.json
   touch ${kvp_file}
-  aws ec2 associate-route-table --subnet-id ${subnet_id} --route-table-id ${rtb_id} >> ${kvp_file}
+  aws ec2 associate-route-table --subnet-id ${subnet_id} --route-table-id \
+  ${rtb_id} >> ${kvp_file}
 }
 associate_rtb_0
 kvp_key="AssociationId"
