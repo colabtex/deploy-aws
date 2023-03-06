@@ -1,6 +1,0 @@
-> Created VPC: vpc-01ab91f0bbee1a68c
-> Created Subnet: subnet-054686f544b64ffad
-> Created Internet Gateway: igw-0a96023e109e68766
-> Created Route Table: rtb-030442ab8c7bf2206
-> Created Route: 
-> Created Route: "Routes": [

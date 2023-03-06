@@ -67,88 +67,137 @@ kvp_dir=./kvp_dir
 log_action() {
     cat $1 >> ${log_file} 2>&1
 }
-
-newline
-confirm
-newline
-
+  newline
+  confirm
+  newline
 ### User/Local
-echo "PWD: ${log_file}" | log_action
-newline
-read -p "Username: " username
-### Setup
-config_file=./config.txt
-rm -f ${config_file}
-touch ${config_file}
-echo "> Username: ${username}" >> ${config_file}
-# keyname="${username}-key"
-# echo "> Keyname: ${keyname}" >> ${config_file}
-# cat ${config_file} | log_action
-# aws ec2 delete-key-pair --key-name ${keyname} | log_action
-kvp_dir=./kvp_dir
-rm -rf ${kvp_dir} | log_action
-mkdir ${kvp_dir} | log_action
-# rm -f devenv-key connect-to-instance.sh | log_action
-# rm -rf ${kvp_dir} | log_action
-# mkdir ${kvp_dir} | log_action
-cd ${kvp_dir}
-kvp_file=""
-kvp_grep=""
-kvp_key=""
-kvp_value=""
+  echo "PWD: ${log_file}" | log_action
+  newline
+  read -p "Username: " username
+  ### Setup
+  config_file=./config.txt
+  rm -f ${config_file}
+  touch ${config_file}
+  echo "> Username: ${username}" >> ${config_file}
+  keyname1="${keyname}1-key"
+  keyname2="${keyname}2-key"
+  rm -f ${keyname1}
+  aws ec2 delete-key-pair --key-name ${keyname1} | log_action
+  aws ec2 create-key-pair --key-name ${keyname1} --query 'KeyMaterial' \
+  --output text > devenv1-key.pem
+  chmod 400 devenv1-key.pem
+  rm -f ${keyname2}
+  aws ec2 delete-key-pair --key-name ${keyname2} | log_action
+  aws ec2 create-key-pair --key-name ${keyname2} --query 'KeyMaterial' \
+  --output text > devenv2-key.pem
+  chmod 400 devenv2-key.pem
+  kvp_dir=./kvp_dir
+  rm -rf ${kvp_dir} | log_action
+  mkdir ${kvp_dir} | log_action
+  rm -f devenv1-key connect-to-instance.sh | log_action
+  cd ${kvp_dir}
+  kvp_file=""
+  kvp_grep=""
+  kvp_key=""
+  kvp_value=""
 process_command_output() {
   kvp_grep=`cat ${kvp_file} | egrep -i "${kvp_key}" | head -1` 2>&1 >> ${log_file}
   kvp_value=`echo ${kvp_grep} | sed 's/".*: "//g' | sed -e 's/",//g'` 2>&1 >> ${log_file}
 }
+  newline
+  confirm
+  newline
+### Security Group A
+echo "Creating Seucirty A"
+    newline
+    create_sg_a() {
+        create_sg_a_dir=${kvp_dir}/create_sg_a
+        mkdir -p ${create_sg_a_dir}
+        kvp_file=${create_sg_a_dir}/create_sg_a.json
+        touch ${kvp_file}
+        aws ec2 create-security-group --description "Security Group A" \
+        --group-name sg_a >> ${kvp_file}
+    }
 
-
-
-
-
-newline
-confirm
-newline
-
-###   VPC
-echo "Creating VPC"
-newline
-create_vpc_0() {
-    create_vpc_dir=${kvp_dir}/create_vpc
-    mkdir -p ${create_vpc_dir}
-    kvp_file=${create_vpc_dir}/create_vpc.json
+    create_sg_a
+    kvp_key="GroupId"
+    process_command_output
+    sg_a_id=${kvp_value}
+echo "> Created Security Group A: ${sg_a_id}" | log_action
+    newline
+    confirm
+    newline
+### Security Group B
+echo "Creating Seucirty B"
+  newline
+  create_sg_b() {
+    create_sg_b_dir=${kvp_dir}/create_sg_b
+    mkdir -p ${create_sg_b_dir}
+    kvp_file=${create_sg_b_dir}/create_sg_b.json
     touch ${kvp_file}
-    aws ec2 create-vpc --cidr-block 10.6.8.0/26 >> ${kvp_file}
-}
-create_vpc_0
-kvp_key="VpcId"
-process_command_output
-vpc_id=${kvp_value}
-echo "> Created VPC: ${vpc_id}" | log_action
+    aws ec2 create-security-group --description "Security Group B"\
+    --group-name sg_b >> ${kvp_file}
+  }
+  create_sg_b
+  kvp_key="GroupId"
+  process_command_output
+  sg_b_id=${kvp_value}
+echo "> Created Security Group B: ${sg_b_id}" | log_bction
+  newline
+  confirm
+  newline
+### Create 2 Instances
+  ### Create Instance A1
+  echo "Creating Instance A1"
+    newline
+    create_instance_a1() {
+        create_instance_a1_dir=${kvp_dir}/create_instance_a1
+        mkdir -p ${create_instance_a1_dir}
+        kvp_file=${create_instance_a1_dir}/create_instance_a1.json
+        touch ${kvp_file}
+        aws ec2 create-instance --image-id ami-09e67e426f25ce0d7 --count 1 \
+        --instance-type t2.micro --key-name ${keyname1} --security-group-ids \
+        >> ${kvp_file}
+    }
 
-newline
-confirm
-newline
+    create_instance_a1
+    kvp_key="InstanceId"
+    process_command_output
+    instance_a1_id=${kvp_value}
+  echo "> Created Instance A1: ${instance_a1_id}" | log_action
 
-###   Subnet A
-echo "Creating Subnet"
-newline
-create_subnet_a() {
-  create_subnet_a_dir=${kvp_dir}/create_subnet_a
-  mkdir -p ${create_subnet_a_dir}
-  kvp_file=${create_subnet_a_dir}/create_subnet_a.json
-  touch ${kvp_file}
-  aws ec2 create-subnet --vpc-id ${vpc_id} --cidr-block 10.6.8.0/28 \
-  --availability-zone us-east-1a >> ${kvp_file}
-}
-create_subnet_a
-kvp_key="SubnetId"
-process_command_output
-subnet_a_id=${kvp_value}
-echo "> Created Subnet: ${subnet_a_id}" | log_action
+    newline
+    confirm
+    newline
 
-newline
-confirm
-newline
+  ### Create Instance B2
+  echo "Creating Instance B2"
+    newline
+    create_instance_b2() {
+      create_instance_b2_dir=${kvp_dir}/create_instance_b2
+      mkdir -p ${create_instance_b2_dir}
+      kvp_file=${create_instance_b2_dir}/create_instance_b2.json
+      touch ${kvp_file}
+      aws ec2 create-instance --image-id ami-09e67e426f25ce0d7 --count 1 \
+      --instance-type t2.micro --key-name ${keyname1} --security-group-ids \
+      >> ${kvp_file}
+    }
+    create_instance_b2
+    kvp_key="InstanceId"
+    process_command_output
+    instance_b2_id=${kvp_value}
+  echo "> Created Instance B2: ${instance_b2_id}" | log_action
+
+    newline
+    confirm
+    newline
+
+
+# Created 2 Instances
+
+end_program
+exit
+
 
 ###   Subnet B
 echo "Creating Subnet B"
@@ -158,7 +207,7 @@ create_subnet_b() {
   mkdir -p ${create_subnet_b_dir}
   kvp_file=${create_subnet_b_dir}/create_subnet_b.json
   touch ${kvp_file}
-  aws ec2 create-subnet --vpc-id ${vpc_id} --cidr-block 10.6.8.1/28 \
+  aws ec2 create-subnet --vpc-id ${vpc_id} --cidr-block 10.0.1.0/24 \
   --availability-zone us-east-1a >> ${kvp_file}
 }
 create_subnet_b
