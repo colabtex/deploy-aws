@@ -1,15 +1,18 @@
 #!/bin/bash
 
-### Functions
-function newline() {
+# SETUP
+###############################################################################
+
+  ### Functions
+  function newline() {
     echo ""
-}
-function confirm() {
+  }
+  function confirm() {
     read -p "Press <ENTER> to confirm you're ready to proceed... "
-}
-function end_program() {
+  }
+  function end_program() {
     cat ${log_file}
-    
+
     # Warn user
     echo "Press enter (twice) when ready to delete all resources"
     newline
@@ -24,10 +27,10 @@ function end_program() {
     echo "(internet gateway id)" ${igw_id}
     echo "(subnet id)" ${subnet_id}
     echo "(vpc id)" ${vpc_id}
-    
+
     newline
     echo "Please stand by - will exit when complete..."
-    
+
     newline
     aws ec2 delete-route-table --route-table-id ${rtb_id} | log_action
     aws ec2 detach-internet-gateway --internet-gateway-id ${igw_id} --vpc-id ${vpc_id} | log_action
@@ -49,28 +52,29 @@ function end_program() {
     cat ${log_file}
     echo ""
     exit
-}
+  }
+  function separate() {
+    newline
+    confirm
+    newline
+  }
 
-newline
-confirm
-newline
+  spearate
+  ### Run Initial Test
+  rm -f ./provisioning-test.txt
+  bash provisioning-test.sh
 
-### Run Initial Test
-rm -f ./provisioning-test.txt
-bash provisioning-test.sh
-
-### log_action
-log_file=./provision-log.txt
-rm -f ${log_file}
-touch ${log_file}
-kvp_dir=./kvp_dir
-log_action() {
+  spearate
+  ### Log Action
+  log_file=./provision-log.txt
+  rm -f ${log_file}
+  touch ${log_file}
+  kvp_dir=./kvp_dir
+  log_action() {
     cat $1 >> ${log_file} 2>&1
-}
-  newline
-  confirm
-  newline
-### User/Local
+  }
+
+  # User/Local
   echo "PWD: ${log_file}" | log_action
   newline
   read -p "Username: " username
@@ -79,78 +83,95 @@ log_action() {
   rm -f ${config_file}
   touch ${config_file}
   echo "> Username: ${username}" >> ${config_file}
-  keyname1="${keyname}1-key"
-  keyname2="${keyname}2-key"
-  rm -f ${keyname1}
-  aws ec2 delete-key-pair --key-name ${keyname1} | log_action
-  aws ec2 create-key-pair --key-name ${keyname1} --query 'KeyMaterial' \
-  --output text > devenv1-key.pem
-  chmod 400 devenv1-key.pem
-  rm -f ${keyname2}
-  aws ec2 delete-key-pair --key-name ${keyname2} | log_action
-  aws ec2 create-key-pair --key-name ${keyname2} --query 'KeyMaterial' \
-  --output text > devenv2-key.pem
-  chmod 400 devenv2-key.pem
   kvp_dir=./kvp_dir
   rm -rf ${kvp_dir} | log_action
   mkdir ${kvp_dir} | log_action
-  rm -f devenv1-key connect-to-instance.sh | log_action
   cd ${kvp_dir}
   kvp_file=""
   kvp_grep=""
   kvp_key=""
   kvp_value=""
-process_command_output() {
-  kvp_grep=`cat ${kvp_file} | egrep -i "${kvp_key}" | head -1` 2>&1 >> ${log_file}
-  kvp_value=`echo ${kvp_grep} | sed 's/".*: "//g' | sed -e 's/",//g'` 2>&1 >> ${log_file}
-}
-  newline
-  confirm
-  newline
-### Security Group A
-echo "Creating Seucirty A"
-    newline
-    create_sg_a() {
-        create_sg_a_dir=${kvp_dir}/create_sg_a
-        mkdir -p ${create_sg_a_dir}
-        kvp_file=${create_sg_a_dir}/create_sg_a.json
-        touch ${kvp_file}
-        aws ec2 create-security-group --description "Security Group A" \
-        --group-name sg_a >> ${kvp_file}
-    }
-
-    create_sg_a
-    kvp_key="GroupId"
-    process_command_output
-    sg_a_id=${kvp_value}
-echo "> Created Security Group A: ${sg_a_id}" | log_action
-    newline
-    confirm
-    newline
-### Security Group B
-echo "Creating Seucirty B"
-  newline
-  create_sg_b() {
-    create_sg_b_dir=${kvp_dir}/create_sg_b
-    mkdir -p ${create_sg_b_dir}
-    kvp_file=${create_sg_b_dir}/create_sg_b.json
-    touch ${kvp_file}
-    aws ec2 create-security-group --description "Security Group B"\
-    --group-name sg_b >> ${kvp_file}
+  process_command_output() {
+    kvp_grep=`cat ${kvp_file} | egrep -i "${kvp_key}" | head -1` 2>&1 >> ${log_file}
+    kvp_value=`echo ${kvp_grep} | sed 's/".*: "//g' | sed -e 's/",//g'` 2>&1 >> ${log_file}
   }
-  create_sg_b
+
+
+###############################################################################
+
+separat
+
+# SECURITY GROUPS
+###############################################################################
+  ### Security Group A
+  echo "Creating Seucirty A"
+  create_sg_a() {
+      create_sg_a_dir=${kvp_dir}/create_sg_a
+      mkdir -p ${create_sg_a_dir}
+      kvp_file=${create_sg_a_dir}/create_sg_a.json
+      touch ${kvp_file}
+      aws ec2 create-security-group --description "Security Group A" \
+      --group-name sg_a >> ${kvp_file}
+  }
+
+  create_sg_a
   kvp_key="GroupId"
   process_command_output
-  sg_b_id=${kvp_value}
-echo "> Created Security Group B: ${sg_b_id}" | log_bction
-  newline
-  confirm
-  newline
-### Create 2 Instances
-  ### Create Instance A1
-  echo "Creating Instance A1"
+  sg_a_id=${kvp_value}
+  echo "> Created Security Group A: ${sg_a_id}" | log_action
+  separate
+  ### Security Group B
+  echo "Creating Seucirty B"
     newline
-    create_instance_a1() {
+    create_sg_b() {
+      create_sg_b_dir=${kvp_dir}/create_sg_b
+      mkdir -p ${create_sg_b_dir}
+      kvp_file=${create_sg_b_dir}/create_sg_b.json
+      touch ${kvp_file}
+      aws ec2 create-security-group --description "Security Group B"\
+      --group-name sg_b >> ${kvp_file}
+    }
+    create_sg_b
+    kvp_key="GroupId"
+    process_command_output
+    sg_b_id=${kvp_value}
+  echo "> Created Security Group B: ${sg_b_id}" | log_bction
+
+###############################################################################
+
+separate
+
+# SSH KEYS
+###############################################################################
+  ### Create 2 SSH Keys
+    # create ssh key 1
+    keyname1="${keyname}1-key"
+    rm -f ${keyname1}
+    aws ec2 delete-key-pair --key-name ${keyname1} | log_action
+    aws ec2 create-key-pair --key-name ${keyname1} --query 'KeyMaterial' \
+    --output text > devenv1-key.pem
+    chmod 400 devenv1-key.pem
+
+    #############################################################################
+    
+    # create ssh key 2
+    keyname2="${keyname}2-key"
+    rm -f ${keyname2}
+    aws ec2 delete-key-pair --key-name ${keyname2} | log_action
+    aws ec2 create-key-pair --key-name ${keyname2} --query 'KeyMaterial' \
+    --output text > devenv2-key.pem
+    chmod 400 devenv2-key.pem
+  ### Created 2 SSH Keys
+###############################################################################
+
+separate
+
+# INSTANCES
+###############################################################################
+  ### Create 2 Instances
+    # Create Instance A1
+    echo "Creating Instance A1"
+      create_instance_a1() {
         create_instance_a1_dir=${kvp_dir}/create_instance_a1
         mkdir -p ${create_instance_a1_dir}
         kvp_file=${create_instance_a1_dir}/create_instance_a1.json
@@ -158,42 +179,33 @@ echo "> Created Security Group B: ${sg_b_id}" | log_bction
         aws ec2 create-instance --image-id ami-09e67e426f25ce0d7 --count 1 \
         --instance-type t2.micro --key-name ${keyname1} --security-group-ids \
         >> ${kvp_file}
-    }
+      }
+      create_instance_a1
+      kvp_key="InstanceId"
+      process_command_output
+      instance_a1_id=${kvp_value}
+    echo "> Created Instance A1: ${instance_a1_id}" | log_action
 
-    create_instance_a1
-    kvp_key="InstanceId"
-    process_command_output
-    instance_a1_id=${kvp_value}
-  echo "> Created Instance A1: ${instance_a1_id}" | log_action
+    ###########################################################################
 
-    newline
-    confirm
-    newline
-
-  ### Create Instance B2
-  echo "Creating Instance B2"
-    newline
-    create_instance_b2() {
-      create_instance_b2_dir=${kvp_dir}/create_instance_b2
-      mkdir -p ${create_instance_b2_dir}
-      kvp_file=${create_instance_b2_dir}/create_instance_b2.json
-      touch ${kvp_file}
-      aws ec2 create-instance --image-id ami-09e67e426f25ce0d7 --count 1 \
-      --instance-type t2.micro --key-name ${keyname1} --security-group-ids \
-      >> ${kvp_file}
-    }
-    create_instance_b2
-    kvp_key="InstanceId"
-    process_command_output
-    instance_b2_id=${kvp_value}
-  echo "> Created Instance B2: ${instance_b2_id}" | log_action
-
-    newline
-    confirm
-    newline
-
-
-# Created 2 Instances
+    # Create Instance B2
+    echo "Creating Instance B2"
+      create_instance_b2() {
+        create_instance_b2_dir=${kvp_dir}/create_instance_b2
+        mkdir -p ${create_instance_b2_dir}
+        kvp_file=${create_instance_b2_dir}/create_instance_b2.json
+        touch ${kvp_file}
+        aws ec2 create-instance --image-id ami-09e67e426f25ce0d7 --count 1 \
+        --instance-type t2.micro --key-name ${keyname1} --security-group-ids \
+        >> ${kvp_file}
+      }
+      create_instance_b2
+      kvp_key="InstanceId"
+      process_command_output
+      instance_b2_id=${kvp_value}
+    echo "> Created Instance B2: ${instance_b2_id}" | log_action
+  ### Created 2 Instances
+###############################################################################
 
 end_program
 exit
@@ -216,9 +228,7 @@ process_command_output
 subnet_b_id=${kvp_value}
 echo "> Created Subnet: ${subnet_b_id}" | log_action
 
-newline
-confirm
-newline
+separate
 
 ###   Internet Gateway
 echo "Creating IGW"
@@ -236,9 +246,7 @@ process_command_output
 igw_id=${kvp_value}
 echo "> Created Internet Gateway: ${igw_id}" | log_action
 
-newline
-confirm
-newline
+separate
 
 ###   Attach IGW
 echo "Attaching IGW"
@@ -254,9 +262,7 @@ attach_igw_0() {
 attach_igw_0
 process_command_output
 
-newline
-confirm
-newline
+separate
 
 ###   Route Table
 echo "Creating Route Table"
@@ -274,9 +280,7 @@ process_command_output
 rtb_id=${kvp_value}
 echo "> Created Route Table: ${rtb_id}" | log_action
 
-newline
-confirm
-newline
+separate
 
 ###   Create Route
 echo "Creating Route"
@@ -316,9 +320,7 @@ echo "> Created Route: ${rt_id}" | log_action
 newline
 echo "Before trying to associate route table, we are going to first validate \
 this script up until this point, including the tear down in end_program"
-newline
-confirm
-newline
+separate
 
 end_program
 exit
