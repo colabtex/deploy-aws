@@ -1,1 +1,4 @@
-> Created Security Group A: sg-0c83138f54f752059"
+> Created Security Group A: sg-0a186ecd673f87459
+> Created Security Group B: sg-06a1add7a2b0d4fdb
+> Created Subnet: 
+> Created Subnet: 

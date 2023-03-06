@@ -2,7 +2,7 @@
 
 # SETUP
 ###############################################################################
-
+  vpc_id="vpc-0cce2d49367f02106"
   ### Functions
   function newline() {
     echo ""
@@ -27,7 +27,8 @@
     echo "(internet gateway id)" ${igw_id}
     echo "(subnet id)" ${subnet_id}
     echo "(vpc id)" ${vpc_id}
-
+    echo "(security group a id)"  ${sg_a_id}
+    echo "(security group b id)"  ${sg_b_id}b
     newline
     echo "Please stand by - will exit when complete..."
 
@@ -37,6 +38,8 @@
     aws ec2 delete-internet-gateway --internet-gateway-id ${igw_id} | log_action
     aws ec2 delete-subnet --subnet-id ${subnet_id} | log_action
     aws ec2 delete-vpc --vpc-id ${vpc_id} | log_action
+    aws ec2 delete-security-group --group-id ${sg_a_id}
+    aws ec2 delete-security-group --group-id ${sg_b_id}
 
     newline
     echo "(Deletions successful if no output above)"
@@ -93,7 +96,12 @@
   kvp_value=""
   process_command_output() {
     kvp_grep=`cat ${kvp_file} | egrep -i "${kvp_key}" | head -1` 2>&1 >> ${log_file}
-    kvp_value=`echo ${kvp_grep} | sed 's/".*: "//g' | sed -e 's/",//g'` 2>&1 >> ${log_file}
+    # echo ${kvp_grep}
+    # kvp_value=`echo ${kvp_grep} | sed 's/".*: "//g' | sed -e 's/",//g' | sed -g 's/"//g'` 2>&1 >> ${log_file}
+    # kvp_value=`echo ${kvp_grep} | sed 's/".*: "//g'` 2>&1 >> ${log_file}
+    kvp_value=`echo ${kvp_grep} | sed 's/".*: "//g' | sed 's/"//g'` 2>&1 >> ${log_file}
+    # echo ${kvp_value}
+    # exit
   }
 
 
@@ -106,38 +114,94 @@ separate
   ### Security Group A
   echo "Creating Security A"
   create_sg_a() {
-      create_sg_a_dir=${kvp_dir}/create_sg_a
-      mkdir -p ${create_sg_a_dir}
-      kvp_file=${create_sg_a_dir}/create_sg_a.json
-      touch ${kvp_file}
-      aws ec2 create-security-group --description "Security Group A" \
-      --group-name sg_a >> ${kvp_file}
+    create_sg_a_dir=${kvp_dir}/create_sg_a
+    mkdir -p ${create_sg_a_dir}
+    kvp_file=${create_sg_a_dir}/create_sg_a.json
+    touch ${kvp_file}
+    aws ec2 create-security-group --description "Security Group A" \
+    --group-name sg_a >> ${kvp_file}
   }
-
   create_sg_a
   kvp_key="GroupId"
   process_command_output
   sg_a_id=${kvp_value}
   echo "> Created Security Group A: ${sg_a_id}" | log_action
-  separate
+    
+  separate       ##################################################
+
   ### Security Group B
   echo "Creating Security B"
-    newline
-    create_sg_b() {
-      create_sg_b_dir=${kvp_dir}/create_sg_b
-      mkdir -p ${create_sg_b_dir}
-      kvp_file=${create_sg_b_dir}/create_sg_b.json
-      touch ${kvp_file}
-      aws ec2 create-security-group --description "Security Group B"\
-      --group-name sg_b >> ${kvp_file}
-    }
-    create_sg_b
-    kvp_key="GroupId"
-    process_command_output
-    sg_b_id=${kvp_value}
+  newline
+  create_sg_b() {
+    create_sg_b_dir=${kvp_dir}/create_sg_b
+    mkdir -p ${create_sg_b_dir}
+    kvp_file=${create_sg_b_dir}/create_sg_b.json
+    touch ${kvp_file}
+    aws ec2 create-security-group --description "Security Group B"\
+    --group-name sg_b >> ${kvp_file}
+  }
+  create_sg_b
+  kvp_key="GroupId"
+  process_command_output
+  sg_b_id=${kvp_value}
   echo "> Created Security Group B: ${sg_b_id}" | log_action
 
 ###############################################################################
+
+separate 
+
+# Authorize Ingress
+###############################################################################
+  ### Security Group A
+  aws ec2 authorize-security-group-ingress \
+    --group-id ${sg_a_id} \
+    --protocol tcp \
+    --port 22 \
+    --cidr "0.0.0.0/0" 
+# <<SG1
+#   echo "Creating Security A"
+#   create_sg_a() {
+#     create_sg_a_dir=${kvp_dir}/create_sg_a
+#     mkdir -p ${create_sg_a_dir}
+#     kvp_file=${create_sg_a_dir}/create_sg_a.json
+#     touch ${kvp_file}
+#     aws ec2 create-security-group --description "Security Group A" \
+#     --group-name sg_a >> ${kvp_file}
+#   }
+#   create_sg_a
+#   kvp_key="GroupId"
+#   process_command_output
+#   sg_a_id=${kvp_value}
+#   echo "> Created Security Group A: ${sg_a_id}" | log_action
+# SG1
+
+  separate       ##################################################
+
+  ### Security Group B
+  aws ec2 authorize-security-group-ingress \
+    --group-id ${sg_b_id} \
+    --protocol tcp \
+    --port 22 \
+    --cidr "0.0.0.0/0" 
+# <<SG2
+#   echo "Creating Security B"
+#   newline
+#   create_sg_b() {
+#     create_sg_b_dir=${kvp_dir}/create_sg_b
+#     mkdir -p ${create_sg_b_dir}
+#     kvp_file=${create_sg_b_dir}/create_sg_b.json
+#     touch ${kvp_file}
+#     aws ec2 create-security-group --description "Security Group B"\
+#     --group-name sg_b >> ${kvp_file}
+#   }
+#   create_sg_b
+#   kvp_key="GroupId"
+#   process_command_output
+#   sg_b_id=${kvp_value}
+#   echo "> Created Security Group B: ${sg_b_id}" | log_action
+# SG2
+###############################################################################
+
 
 separate
 
@@ -145,7 +209,7 @@ separate
 ###############################################################################
   ### Create 2 SSH Keys
     # create ssh key 1
-    keyname1="${keyname}1-key"
+    keyname1=${kvp_dir}/devenv1-key
     rm -f ${keyname1}
     aws ec2 delete-key-pair --key-name ${keyname1} | log_action
     aws ec2 create-key-pair --key-name ${keyname1} --query 'KeyMaterial' \
@@ -155,7 +219,7 @@ separate
     #############################################################################
     
     # create ssh key 2
-    keyname2="${keyname}2-key"
+    keyname2=${kvp_dir}/devenv2-key
     rm -f ${keyname2}
     aws ec2 delete-key-pair --key-name ${keyname2} | log_action
     aws ec2 create-key-pair --key-name ${keyname2} --query 'KeyMaterial' \
@@ -166,6 +230,11 @@ separate
 
 separate
 
+echo "Try manually creating instance"
+confirm
+confirm
+
+<<instances
 # INSTANCES
 ###############################################################################
   ### Create 2 Instances
@@ -178,7 +247,7 @@ separate
         touch ${kvp_file}
         aws ec2 create-instance --image-id ami-09e67e426f25ce0d7 --count 1 \
         --instance-type t2.micro --key-name ${keyname1} --security-group-ids \
-        >> ${kvp_file}
+        ${sg_a_id} >> ${kvp_file}
       }
       create_instance_a1
       kvp_key="InstanceId"
@@ -197,7 +266,7 @@ separate
         touch ${kvp_file}
         aws ec2 create-instance --image-id ami-09e67e426f25ce0d7 --count 1 \
         --instance-type t2.micro --key-name ${keyname1} --security-group-ids \
-        >> ${kvp_file}
+        ${sg_b_id} >> ${kvp_file}
       }
       create_instance_b2
       kvp_key="InstanceId"
@@ -206,9 +275,24 @@ separate
     echo "> Created Instance B2: ${instance_b2_id}" | log_action
   ### Created 2 Instances
 ###############################################################################
+instances
 
-end_program
-exit
+###   Subnet A
+echo "Creating Subnet A"
+newline
+create_subnet_a() {
+  create_subnet_a_dir=${kvp_dir}/create_subnet_a
+  mkdir -p ${create_subnet_a_dir}
+  kvp_file=${create_subnet_a_dir}/create_subnet_a.json
+  touch ${kvp_file}
+  aws ec2 create-subnet --vpc-id ${vpc_id} --cidr-block 10.0.1.0/24 \
+  --availability-zone us-east-1a >> ${kvp_file}
+}
+create_subnet_a
+kvp_key="SubnetId"
+process_command_output
+subnet_b_id=${kvp_value}
+echo "> Created Subnet: ${subnet_b_id}" | log_action
 
 
 ###   Subnet B
@@ -229,6 +313,57 @@ subnet_b_id=${kvp_value}
 echo "> Created Subnet: ${subnet_b_id}" | log_action
 
 separate
+
+
+# INSTANCES
+###############################################################################
+  ### Create 2 Instances
+    # Create Instance A1
+    echo "Creating Instance A1"
+      create_instance_a1() {
+        create_instance_a1_dir=${kvp_dir}/create_instance_a1
+        mkdir -p ${create_instance_a1_dir}
+        kvp_file=${create_instance_a1_dir}/create_instance_a1.json
+        touch ${kvp_file}
+        aws ec2 create-instance --image-id ami-09e67e426f25ce0d7 --count 1 \
+        --instance-type t2.micro --key-name ${keyname1} --subnet-id \
+        ${subnet_a_id} >> ${kvp_file}
+      }
+      create_instance_a1
+      kvp_key="InstanceId"
+      process_command_output
+      instance_a1_id=${kvp_value}
+    echo "> Created Instance A1: ${instance_a1_id}" | log_action
+
+    ###########################################################################
+
+    # Create Instance B2
+    echo "Creating Instance B2"
+      create_instance_b2() {
+        create_instance_b2_dir=${kvp_dir}/create_instance_b2
+        mkdir -p ${create_instance_b2_dir}
+        kvp_file=${create_instance_b2_dir}/create_instance_b2.json
+        touch ${kvp_file}
+        aws ec2 create-instance --image-id ami-09e67e426f25ce0d7 --count 1 \
+        --instance-type t2.micro --key-name ${keyname1} --subnet-id \
+        ${subnet_b_id} >> ${kvp_file}
+      }
+      create_instance_b2
+      kvp_key="InstanceId"
+      process_command_output
+      instance_b2_id=${kvp_value}
+    echo "> Created Instance B2: ${instance_b2_id}" | log_action
+  ### Created 2 Instances
+###############################################################################
+
+separate
+
+confirm
+confirm
+confirm
+
+end_program
+exit
 
 ###   Internet Gateway
 echo "Creating IGW"
