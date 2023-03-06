@@ -6,4 +6,5 @@
     one that actually calls those other scripts)
 README
 
-bash deploy.sh
+# bash deploy.sh
+bash provision-aws.sh
