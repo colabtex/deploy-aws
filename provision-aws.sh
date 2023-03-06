@@ -59,12 +59,12 @@
     newline
   }
 
-  spearate
+  separate
   ### Run Initial Test
   rm -f ./provisioning-test.txt
   bash provisioning-test.sh
 
-  spearate
+  separate
   ### Log Action
   log_file=./provision-log.txt
   rm -f ${log_file}
@@ -99,12 +99,12 @@
 
 ###############################################################################
 
-separat
+separate
 
 # SECURITY GROUPS
 ###############################################################################
   ### Security Group A
-  echo "Creating Seucirty A"
+  echo "Creating Security A"
   create_sg_a() {
       create_sg_a_dir=${kvp_dir}/create_sg_a
       mkdir -p ${create_sg_a_dir}
@@ -121,7 +121,7 @@ separat
   echo "> Created Security Group A: ${sg_a_id}" | log_action
   separate
   ### Security Group B
-  echo "Creating Seucirty B"
+  echo "Creating Security B"
     newline
     create_sg_b() {
       create_sg_b_dir=${kvp_dir}/create_sg_b
@@ -135,7 +135,7 @@ separat
     kvp_key="GroupId"
     process_command_output
     sg_b_id=${kvp_value}
-  echo "> Created Security Group B: ${sg_b_id}" | log_bction
+  echo "> Created Security Group B: ${sg_b_id}" | log_action
 
 ###############################################################################
 

@@ -1,5 +1,5 @@
 =============================================================================
-Test Starting Execution At: Sun Mar 5 07:19:26 PM EST 2023
+Test Starting Execution At: Sun Mar 5 09:36:35 PM EST 2023
 
 Testing Credentials (if you receive output, the test passed)
 {
@@ -12,8 +12,8 @@ Configuration details of this profile are below
       Name                    Value             Type    Location
       ----                    -----             ----    --------
    profile                <not set>             None    None
-access_key     ****************GOEO shared-credentials-file    
-secret_key     ****************6yhg shared-credentials-file    
+access_key     ****************3IO6 shared-credentials-file    
+secret_key     ****************SB1y shared-credentials-file    
     region                us-east-1      config-file    ~/.aws/config
 
 
@@ -41,5 +41,5 @@ secret_key     ****************6yhg shared-credentials-file
     ]
 }
 
-Test Finishing Execution At: Sun Mar 5 07:19:34 PM EST 2023
+Test Finishing Execution At: Sun Mar 5 09:36:47 PM EST 2023
 =============================================================================
