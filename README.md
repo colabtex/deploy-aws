@@ -1,5 +1,7 @@
 # deploy-aws
 
+*** This was HARD. The purpose of this repo was for Wei Hao's CIT 438. I started off working on this on the schools VM, but it only made things harder. Eventually I switched to my own VM (which itself took some time to set up)
+
 First, follow steps in os-setup-steps.txt
 
 Second, follow steps in git-setup-steps.txt
