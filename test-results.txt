@@ -43,3 +43,66 @@ secret_key     ****************6yhg shared-credentials-file
 
 Test Finishing Execution At: Sun Mar 5 06:58:03 PM EST 2023
 =============================================================================
+=============================================================================
+Test Starting Execution At: Sun Mar 5 07:35:49 PM EST 2023
+
+Testing Credentials (if you receive output, the test passed)
+
+Configuration details of this profile are below
+      Name                    Value             Type    Location
+      ----                    -----             ----    --------
+   profile                <not set>             None    None
+access_key     ****************GOEO shared-credentials-file    
+secret_key     ****************6yhg shared-credentials-file    
+    region                us-east-1      config-file    ~/.aws/config
+
+
+---  Describing Default VPC  ---
+
+Test Finishing Execution At: Sun Mar 5 07:36:10 PM EST 2023
+=============================================================================
+=============================================================================
+Test Starting Execution At: Sun Mar 5 07:38:05 PM EST 2023
+
+Testing Credentials (if you receive output, the test passed)
+{
+    "UserId": "AROAYZWT465A374E27L6A:deploy",
+    "Account": "604961044289",
+    "Arn": "arn:aws:sts::604961044289:assumed-role/AWSReservedSSO_AdministratorAccess_84b3e87ad10d8cda/deploy"
+}
+
+Configuration details of this profile are below
+      Name                    Value             Type    Location
+      ----                    -----             ----    --------
+   profile                <not set>             None    None
+access_key     ****************QMXL shared-credentials-file    
+secret_key     ****************DH2K shared-credentials-file    
+    region                us-east-1      config-file    ~/.aws/config
+
+
+---  Describing Default VPC  ---
+{
+    "Vpcs": [
+        {
+            "CidrBlock": "172.31.0.0/16",
+            "DhcpOptionsId": "dopt-0bf07563bed014caa",
+            "State": "available",
+            "VpcId": "vpc-0cce2d49367f02106",
+            "OwnerId": "604961044289",
+            "InstanceTenancy": "default",
+            "CidrBlockAssociationSet": [
+                {
+                    "AssociationId": "vpc-cidr-assoc-0bf5b5007da58efbb",
+                    "CidrBlock": "172.31.0.0/16",
+                    "CidrBlockState": {
+                        "State": "associated"
+                    }
+                }
+            ],
+            "IsDefault": true
+        }
+    ]
+}
+
+Test Finishing Execution At: Sun Mar 5 07:38:15 PM EST 2023
+=============================================================================
