@@ -16,3 +16,8 @@ Finally, run start.sh so that the following is accomplished
  After all of those steps a basic AWS example project should be complete
  
  At that point, verify everything is set up as desired, and make changes as necessary
+
+*** Note: though the AWSkeys have been included in the files, I disabled the user just before making this repo public
+
+There are still issues with this code, but I made some mistake somewhere and now I'm much further than I was a couple hours ago,
+the best that could be done was to at least get the script in an order where it will somewhat compile
