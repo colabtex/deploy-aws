@@ -29,11 +29,11 @@ function end_program() {
     echo "Please stand by - will exit when complete..."
     
     newline
-    aws ec2 delete-route-table --route-table-id ${rtb_id} | logit
-    aws ec2 detach-internet-gateway --internet-gateway-id ${igw_id} --vpc-id ${vpc_id} | logit
-    aws ec2 delete-internet-gateway --internet-gateway-id ${igw_id} | logit
-    aws ec2 delete-subnet --subnet-id ${subnet_id} | logit
-    aws ec2 delete-vpc --vpc-id ${vpc_id} | logit
+    aws ec2 delete-route-table --route-table-id ${rtb_id} | log_action
+    aws ec2 detach-internet-gateway --internet-gateway-id ${igw_id} --vpc-id ${vpc_id} | log_action
+    aws ec2 delete-internet-gateway --internet-gateway-id ${igw_id} | log_action
+    aws ec2 delete-subnet --subnet-id ${subnet_id} | log_action
+    aws ec2 delete-vpc --vpc-id ${vpc_id} | log_action
 
     newline
     echo "(Deletions successful if no output above)"
@@ -55,14 +55,16 @@ newline
 confirm
 newline
 
-### Logit
-log_file=~/lgt.txt
+### Run Initial Test
+rm -f ./provisioning-test.txt
+bash provisioning-test.sh
+
+### log_action
+log_file=./provision-log.txt
 rm -f ${log_file}
-rm -f *.lgt
 touch ${log_file}
-touch ./logit.example.lgt
-kvp_dir=~/kvp_dir
-logit() {
+kvp_dir=./kvp_dir
+log_action() {
     cat $1 >> ${log_file} 2>&1
 }
 
@@ -71,9 +73,37 @@ confirm
 newline
 
 ### User/Local
-echo "PWD: ${log_file}" | logit
+echo "PWD: ${log_file}" | log_action
 newline
 read -p "Username: " username
+### Setup
+config_file=~/config.txt
+rm -f ${config_file}
+touch ${config_file}
+echo "> Username: ${username}" >> ${config_file}
+# keyname="${username}-key"
+# echo "> Keyname: ${keyname}" >> ${config_file}
+# cat ${config_file} | log_action
+# aws ec2 delete-key-pair --key-name ${keyname} | log_action
+kvp_dir=~/kvp_dir
+rm -rf ${kvp_dir} | log_action
+mkdir ${kvp_dir} | log_action
+# rm -f devenv-key connect-to-instance.sh | log_action
+# rm -rf ${kvp_dir} | log_action
+# mkdir ${kvp_dir} | log_action
+cd ${kvp_dir}
+kvp_file=""
+kvp_grep=""
+kvp_key=""
+kvp_value=""
+process_command_output() {
+  kvp_grep=`cat ${kvp_file} | egrep -i "${kvp_key}" | head -1` 2>&1 >> ${log_file}
+  kvp_value=`echo ${kvp_grep} | sed 's/".*: "//g' | sed -e 's/",//g'` 2>&1 >> ${log_file}
+}
+
+
+
+
 
 newline
 confirm
@@ -93,7 +123,7 @@ create_vpc_0
 kvp_key="VpcId"
 process_command_output
 vpc_id=${kvp_value}
-echo "> Created VPC: ${vpc_id}" | logit
+echo "> Created VPC: ${vpc_id}" | log_action
 
 newline
 confirm
@@ -113,7 +143,7 @@ create_subnet_0
 kvp_key="SubnetId"
 process_command_output
 subnet_id=${kvp_value}
-echo "> Created Subnet: ${subnet_id}" | logit
+echo "> Created Subnet: ${subnet_id}" | log_action
 
 newline
 confirm
@@ -133,7 +163,7 @@ create_igw_0
 kvp_key="InternetGatewayId"
 process_command_output
 igw_id=${kvp_value}
-echo "> Created Internet Gateway: ${igw_id}" | logit
+echo "> Created Internet Gateway: ${igw_id}" | log_action
 
 newline
 confirm
@@ -170,7 +200,7 @@ create_rtb_0
 kvp_key="RouteTableId"
 process_command_output
 rtb_id=${kvp_value}
-echo "> Created Route Table: ${rtb_id}" | logit
+echo "> Created Route Table: ${rtb_id}" | log_action
 
 newline
 confirm
@@ -190,7 +220,7 @@ create_rt_0
 kvp_key="Routes"
 process_command_output
 rt_id=${kvp_value}
-echo "> Created Route: ${rt_id}" | logit
+echo "> Created Route: ${rt_id}" | log_action
 
 
 
@@ -208,7 +238,7 @@ describe_rtb_0
 kvp_key="Routes"
 process_command_output
 rt_id=${kvp_value}
-echo "> Created Route: ${rt_id}" | logit
+echo "> Created Route: ${rt_id}" | log_action
 
 newline
 echo "Before trying to associate route table, we are going to first validate \
@@ -234,4 +264,4 @@ associate_rtb_0
 kvp_key="AssociationId"
 process_command_output
 asc_id=${kvp_value}
-echo "> Created Route Association: ${asc_id}" | logit
+echo "> Created Route Association: ${asc_id}" | log_action
